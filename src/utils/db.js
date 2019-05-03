@@ -10,6 +10,7 @@ const dao = {
 	deleteRecipe,
 	
 	get,
+	getRecipe,
 	post,
 	updateById,
 	deleteById
@@ -36,6 +37,13 @@ async function deleteById(tbl, id){
 	.del()
 }
 
+async function getRecipe(tbl, id){
+	return  db('recipes')
+		.join('dishes', 'dishes.id', 'recipes.dish_id')
+		.select(knex.raw(`recipes.name as 'RECIPE',dishes.name as 'DISH'`))
+		.where({'recipes.id': id})
+		.distinct()
+}
 
 async function getRecipes(){
 	return db('recipes')

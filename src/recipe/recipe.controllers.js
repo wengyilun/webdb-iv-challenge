@@ -1,4 +1,5 @@
 import db from '../utils/db'
+const tableName = 'recipes'
 
 export const getRecipes = async (req, res) => {
 	try {
@@ -55,6 +56,22 @@ export const deleteRecipe = async (req, res) => {
 		}
 	}
 	catch(e){
+		res.status(500).json(e);
+	}
+}
+
+
+export const getRecipe = async (req, res) => {
+	try {
+		if(!req.params.id){
+			res.status(401).json({message:'id is required'})
+		}
+		const recipe = await db.getRecipe(tableName, req.params.id)
+		console.log('recipe', recipe)
+		 res.status(200).json(recipe)
+	}
+	catch(e){
+		console.error(e)
 		res.status(500).json(e);
 	}
 }

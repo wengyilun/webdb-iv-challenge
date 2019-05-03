@@ -5,7 +5,7 @@ require('dotenv').config()
 
 import setupRecipeRoutes from './recipe/recipe.router'
 import setupDishRoutes from './dish/dish.router'
-// import setupIngredientRoutes from './ingredient/ingredient.router'
+import setupIngredientRoutes from './ingredient/ingredient.router'
 
 function setupRoutes(app){
 	const recipeRouter = express.Router()
@@ -15,6 +15,10 @@ function setupRoutes(app){
 	const dishRouter = express.Router()
 	setupDishRoutes(dishRouter)
 	app.use('/api/dishes', dishRouter)
+	
+	const ingredientRouter = express.Router()
+	setupIngredientRoutes(ingredientRouter)
+	app.use('/api/ingredients', ingredientRouter)
 }
 
 async function startServer() {
